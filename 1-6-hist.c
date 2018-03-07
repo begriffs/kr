@@ -11,7 +11,7 @@ int main()
   len = 0;
   while((c = getchar()) != EOF) {
     if(c == ' ' || c == '\t' || c == '\n') {
-      if(len > 0) {
+      if(len > 0 && len < 255) {
         ++hist[len];
       }
       len = 0;
