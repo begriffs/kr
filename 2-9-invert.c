@@ -10,7 +10,7 @@ invert(unsigned int x, int p, int n)
 	0000000000000001110000000000
 	*/
 
-	return x ^ (~(~0 << n) << (p-n));
+	return x ^ (~(~0 << n) << (p+1-n));
 }
 
 void printb(unsigned u) {
@@ -27,7 +27,7 @@ int main() {
 	for (i = 0; i < 16; i++) {
 		printb(i);
 		printf("^=");
-		printb(invert(i, 3, 2));
+		printb(invert(i, 2, 2));
 		putchar('\n');
 	}
 }

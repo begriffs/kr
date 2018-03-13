@@ -20,7 +20,7 @@ void printb(unsigned u) {
 int main() {
 	int i, j;
 	for (i = 0; i < 16; i++) {
-		printb(+i);
+		printb(i);
 		printf("\t->\t");
 		printb(rightrot(i, 2));
 		putchar('\n');
