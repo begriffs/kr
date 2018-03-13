@@ -9,13 +9,12 @@ rightrot(unsigned int x, int n)
 }
 
 void printb(unsigned u) {
-	if (u) {
+	if (u > 1)
 		printb(u >> 1);
-		if (u & 1)
-			putchar('1');
-		else
-			putchar('0');
-	}
+	if (u & 1)
+		putchar('1');
+	else
+		putchar('0');
 }
 
 int main() {
