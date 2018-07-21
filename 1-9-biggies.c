@@ -4,34 +4,39 @@
 
 int getl(char line[], int maxline);
 
-int main()
+int
+main()
 {
-  int len;
-  char line[MAXLINE];
+	int len;
+	char line[MAXLINE];
 
-  while ((len = getl(line, MAXLINE)) > 0)
-    if (len > 80)
-      printf("%s", line);
+	while ((len = getl(line, MAXLINE)) > 0)
+		if (len > 80)
+			printf("%s", line);
 
-  return 0;
+	return 0;
 }
 
-int getl(char s[], int lim)
+int
+getl(char s[], int lim)
 {
-  int c, i, j;
+	int c, i, j;
 
-  for (i=j=0; (c=getchar())!=EOF && c!='\n'; ++i) {
-    if(i < lim-2) {
-      s[i] = c;
-      ++j;
-    }
-  }
-  if(c == '\n') {
-    s[j] = c;
-    ++j;
-    ++i;
-  }
-  s[j] = '\0';
+	for (i = j = 0; (c = getchar()) != EOF && c != '\n'; ++i)
+	{
+		if (i < lim - 2)
+		{
+			s[i] = c;
+			++j;
+		}
+	}
+	if (c == '\n')
+	{
+		s[j] = c;
+		++j;
+		++i;
+	}
+	s[j] = '\0';
 
-  return i;
+	return i;
 }

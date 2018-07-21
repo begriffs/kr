@@ -4,11 +4,13 @@
 unsigned int
 rightrot(unsigned int x, int n)
 {
-	int s = sizeof(x)*8;
-	return (x >> n) | (x << (s-n));
+	int s = sizeof(x) * 8;
+	return (x >> n) | (x << (s - n));
 }
 
-void printb(unsigned u) {
+void
+printb(unsigned u)
+{
 	if (u > 1)
 		printb(u >> 1);
 	if (u & 1)
@@ -17,9 +19,12 @@ void printb(unsigned u) {
 		putchar('0');
 }
 
-int main() {
+int
+main()
+{
 	int i, j;
-	for (i = 0; i < 16; i++) {
+	for (i = 0; i < 16; i++)
+	{
 		printb(i);
 		printf("\t->\t");
 		printb(rightrot(i, 2));

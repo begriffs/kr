@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <limits.h>
 
-int main()
+int
+main()
 {
 	printf("char : %lu\n", sizeof(char));
 	printf("short: %lu\n", sizeof(short));

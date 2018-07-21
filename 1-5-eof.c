@@ -1,11 +1,8 @@
 #include <stdio.h>
 
-int main()
+int
+main()
 {
-  putchar('?');
-  printf(
-      "%d | %d\n",
-      getchar() != EOF,
-      EOF
-  );
+	putchar('?');
+	printf("%d | %d\n", getchar() != EOF, EOF);
 }
