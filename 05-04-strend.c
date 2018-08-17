@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+/* does t occur at the end of s? 1 : 0 */
+int strend(char *s, char *t)
+{
+	char *send, *tend;
+	for (send = s; *send; send++)
+		;
+	for (tend = t; *tend; tend++)
+		;
+	while (*send-- == *tend--)
+	{
+		if (tend == t)
+			return 1;
+		if (send == s)
+			break;
+	}
+
+	return 0;
+}
+
+int main(void)
+{
+	char s[2048], t[2048];
+	printf("s> ");
+	gets(s);
+	printf("t> ");
+	gets(t);
+	printf("s ends in t? %d\n", strend(s, t));
+}
