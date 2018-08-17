@@ -3,12 +3,12 @@
 /* does t occur at the end of s? 1 : 0 */
 int strend(char *s, char *t)
 {
-	char *send, *tend;
-	for (send = s; *send; send++)
+	char *send = s, *tend = t;
+	while (*send++)
 		;
-	for (tend = t; *tend; tend++)
+	while (*tend++)
 		;
-	while (*send-- == *tend--)
+	while (*--send == *--tend)
 	{
 		if (tend == t)
 			return 1;
