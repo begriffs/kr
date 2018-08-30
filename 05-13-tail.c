@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 		n = MAX(0, atoi(argv[1] + 1));
 
 	lines[0] = writer = buf;
-	while ((c = getchar()) != EOF)
+	while (writer - buf <= MAXSZ && (c = getchar()) != EOF)
 	{
 		*writer++ = c;
 		if (c == '\n')
