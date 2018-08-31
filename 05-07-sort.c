@@ -13,7 +13,7 @@ int main(void)
 
 	if ((nlines = readlines(lineptr, alloc, MAXLINES, MAXLEN)) >= 0)
 	{
-		qsort(lineptr, 0, nlines-1);
+		jqsort(lineptr, 0, nlines-1);
 		writelines(lineptr, nlines);
 		return 0;
 	}

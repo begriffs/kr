@@ -1,28 +1,47 @@
 #include "j-qsort.h"
 #include <string.h>
 
+void swap(void *v[], int i, int j);
+
 /* sort v[left]..v[right] into increasing order */
-void qsort(char *v[], int left, int right)
+void jqsort(char *v[], int left, int right)
 {
 	int i, last;
-	void swap(char *v[], int i, int j);
+
+	if (left >= right)
+		return;
+
+	swap((void**)v, left, (left+right)/2);
+	for (last=left, i=left+1; i <= right; i++)
+		if (strcmp(v[i], v[left]) < 0)
+			swap((void**)v, ++left, i);
+	swap((void**)v, left, last);
+
+	jqsort(v, left, last-1);
+	jqsort(v, last+1, right);
+}
+
+void swap(void *v[], int i, int j)
+{
+	void *t = v[i];
+	v[i] = v[j];
+	v[j] = t;
+}
+
+void vqsort(void *v[], int left, int right,
+            int (*cmp)(void *, void *))
+{
+	int i, last;
 
 	if (left >= right)
 		return;
 
 	swap(v, left, (left+right)/2);
 	for (last=left, i=left+1; i <= right; i++)
-		if (strcmp(v[i], v[left]) < 0)
+		if ((*cmp)(v[i], v[left]) < 0)
 			swap(v, ++left, i);
 	swap(v, left, last);
 
-	qsort(v, left, last-1);
-	qsort(v, last+1, right);
-}
-
-void swap(char *v[], int i, int j)
-{
-	char *t = v[i];
-	v[i] = v[j];
-	v[j] = t;
+	vqsort(v, left, last-1, cmp);
+	vqsort(v, last+1, right, cmp);
 }
