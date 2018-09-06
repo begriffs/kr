@@ -10,8 +10,9 @@ enum { NAME, PARENS, BRACKETS };
 void dcl(void);
 void dirdcl(void);
 int gettoken(void);
+void err(char *err);
 
-int tokentype;
+int tokentype, retrytoken = 0;
 char token[MAXTOK],
 	 name[MAXTOK],
 	 datatype[MAXTOK],
@@ -26,9 +27,7 @@ int main(int argc, char **argv)
 		out[0] = '\0';
 		dcl();
 		if (tokentype != '\n')
-		{
-			printf("Syntax error\n");
-		}
+			err("Syntax error");
 		printf("%s: %s %s\n", name, out, datatype);
 	}
 	return 0;
@@ -38,6 +37,12 @@ int gettoken(void)
 {
 	int c;
 	char *p = token;
+
+	if (retrytoken)
+	{
+		retrytoken = 0;
+		return tokentype;
+	}
 	while ((c = getch()) == ' ' || c == '\t')
 		;
 	if (c == '(')
@@ -91,12 +96,12 @@ void dirdcl(void)
 	{
 		dcl();
 		if (tokentype != ')')
-			printf("Error: missing ')'\n");
+			err("Error: missing ')'");
 	}
 	else if (tokentype == NAME)
 		strcpy(name, token);
 	else
-		printf("Error: expected name or (dcl)\n");
+		err("Error: expected name or (dcl)");
 
 	while ((type = gettoken()) == PARENS ||
 			type == BRACKETS)
@@ -110,4 +115,10 @@ void dirdcl(void)
 			strcat(out, " of");
 		}
 	}
+}
+
+void err(char *err)
+{
+	printf("%s\n", err);
+	retrytoken = 1;
 }
