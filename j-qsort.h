@@ -4,6 +4,5 @@
 void jqsort(char *v[], int left, int right);
 
 void vqsort(void *v[], int left, int right,
-            int (*cmp)(void *, void *));
-
+            int (*cmp)(void *, void *), int scale);
 #endif

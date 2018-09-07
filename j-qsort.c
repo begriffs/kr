@@ -29,7 +29,7 @@ void swap(void *v[], int i, int j)
 }
 
 void vqsort(void *v[], int left, int right,
-            int (*cmp)(void *, void *))
+            int (*cmp)(void *, void *), int scale)
 {
 	int i, last;
 
@@ -38,10 +38,10 @@ void vqsort(void *v[], int left, int right,
 
 	swap(v, left, (left+right)/2);
 	for (last=left, i=left+1; i <= right; i++)
-		if ((*cmp)(v[i], v[left]) < 0)
+		if (scale * (*cmp)(v[i], v[left]) < 0)
 			swap(v, ++left, i);
 	swap(v, left, last);
 
-	vqsort(v, left, last-1, cmp);
-	vqsort(v, last+1, right, cmp);
+	vqsort(v, left, last-1, cmp, scale);
+	vqsort(v, last+1, right, cmp, scale);
 }
