@@ -18,12 +18,20 @@ struct key {
 	"continue", 0,
 	"default", 0,
 	"int", 0,
-	/* ... */
+	"size_t", 0,
 	"unsigned", 0,
 	"void", 0,
 	"volatile", 0,
 	"while", 0
 };
+
+/* A comment with the word volatile to test
+ * this program against its own source code
+ */
+
+enum pstate { NORMAL, STR, STR_ESC,
+	COMMENT_IN, COMMENT, COMMENT_OUT };
+enum pstate new_state(enum pstate, int);
 
 #define NKEYS (sizeof(keytab) / sizeof(keytab[0]))
 
@@ -32,13 +40,17 @@ int binsearch(char *, struct key[], size_t);
 
 int main(void)
 {
-	int n;
+	int n, c;
 	char word[MAXWORD];
+	enum pstate s = NORMAL;
 
-	while (getword(word, MAXWORD) != EOF)
-		if (isalpha(*word))
+	while ((c = getword(word, MAXWORD)) != EOF)
+	{
+		s = new_state(s, c);
+		if (isalpha(*word) && s == NORMAL)
 			if ((n = binsearch(word, keytab, NKEYS)) >= 0)
 				keytab[n].count++;
+	}
 	for (n = 0; n < NKEYS; n++)
 		if (keytab[n].count > 0)
 			printf("%4d %s\n", keytab[n].count, keytab[n].word);
@@ -63,6 +75,42 @@ int binsearch(char *word, struct key tab[], size_t n)
 	return -1;
 }
 
+enum pstate new_state(enum pstate old, int c)
+{
+	switch (old)
+	{
+		case NORMAL:
+			if (c == '/')
+				return COMMENT_IN;
+			if (c == '"')
+				return STR;
+			return NORMAL;
+		case STR:
+			if (c == '\\')
+				return STR_ESC;
+			if (c == '"')
+				return NORMAL;
+			return STR;
+		case STR_ESC:
+			return STR;
+		case COMMENT_IN:
+			if (c == '*')
+				return COMMENT;
+			return NORMAL;
+		case COMMENT:
+			if (c == '*')
+				return COMMENT_OUT;
+			return COMMENT;
+		case COMMENT_OUT:
+			if (c == '/')
+				return NORMAL;
+			return COMMENT;
+		default:
+			printf("Invalid state\n");
+			return NORMAL;
+	}
+}
+
 int getword(char *word, int lim)
 {
 	int c;
@@ -78,7 +126,7 @@ int getword(char *word, int lim)
 		return c;
 	}
 	for (; --lim > 0; w++)
-		if (!isalnum(*w = getch()))
+		if (!isalnum(*w = getch()) && *w != '_')
 		{
 			ungetch(*w);
 			break;
@@ -86,4 +134,3 @@ int getword(char *word, int lim)
 	*w = '\0';
 	return *word;
 }
-
