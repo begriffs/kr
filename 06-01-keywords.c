@@ -36,43 +36,44 @@ enum pstate new_state(enum pstate, int);
 #define NKEYS (sizeof(keytab) / sizeof(keytab[0]))
 
 int getword(char *, int);
-int binsearch(char *, struct key[], size_t);
+struct key *binsearch(char *, struct key[], size_t);
 
 int main(void)
 {
-	int n, c;
+	int c;
 	char word[MAXWORD];
+	struct key *k;
 	enum pstate s = NORMAL;
 
 	while ((c = getword(word, MAXWORD)) != EOF)
 	{
 		s = new_state(s, c);
 		if (isalpha(*word) && s == NORMAL)
-			if ((n = binsearch(word, keytab, NKEYS)) >= 0)
-				keytab[n].count++;
+			if ((k = binsearch(word, keytab, NKEYS)) != NULL)
+				k->count++;
 	}
-	for (n = 0; n < NKEYS; n++)
-		if (keytab[n].count > 0)
-			printf("%4d %s\n", keytab[n].count, keytab[n].word);
+	for (k = keytab; k < keytab + NKEYS; k++)
+		if (k->count > 0)
+			printf("%4d %s\n", k->count, k->word);
 	return 0;
 }
 
-int binsearch(char *word, struct key tab[], size_t n)
+struct key *binsearch(char *word, struct key tab[], size_t n)
 {
 	int cond;
-	int lo = 0, mid, hi = n-1;
+	struct key *lo = tab, *mid, *hi = &tab[n];
 
-	while (lo <= hi)
+	while (lo < hi)
 	{
-		mid = (lo+hi) / 2;
-		if ((cond = strcmp(word, tab[mid].word)) < 0)
-			hi = mid - 1;
+		mid = lo + (hi-lo) / 2;
+		if ((cond = strcmp(word, mid->word)) < 0)
+			hi = mid;
 		else if (cond > 0)
 			lo = mid + 1;
 		else
 			return mid;
 	}
-	return -1;
+	return NULL;
 }
 
 enum pstate new_state(enum pstate old, int c)
