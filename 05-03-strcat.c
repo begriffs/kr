@@ -14,9 +14,9 @@ int main(void)
 {
 	char s[2048], t[1024];
 	printf("s> ");
-	gets(s);
+	scanf("%s", s);
 	printf("t> ");
-	gets(t);
+	scanf("%s", t);
 	pstrcat(s, t);
 	printf("%s\n", s);
 }

@@ -59,8 +59,8 @@ int main(void)
 {
 	char s[2048], t[2048];
 	printf("s> ");
-	gets(s);
+	scanf("%s", s);
 	printf("t> ");
-	gets(t);
+	scanf("%s", t);
 	printf("%d\n", pstrncmp(s, t, 4));
 }
