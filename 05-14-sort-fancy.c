@@ -10,7 +10,6 @@
 char *lineptr[MAXLINES], alloc[MAXLINES*MAXLEN];
 
 int numcmp(const char *, const char *);
-int revcmp(int (*)(void*, void*));
 
 int main(int argc, char **argv)
 {
@@ -22,7 +21,7 @@ int main(int argc, char **argv)
 	if ((nlines = readlines(lineptr, alloc, MAXLINES, MAXLEN)) >= 0)
 	{
 		vqsort((void**)lineptr, 0, nlines-1,
-				(int (*)(void *, void*))(numeric ? numcmp : strcmp));
+				(int (*)(void *, void*))(numeric ? numcmp : strcmp), 1);
 		writelines(lineptr, nlines);
 		return 0;
 	}
@@ -35,7 +34,3 @@ int numcmp(const char *a, const char *b)
 {
 	return atof(a) - atof(b);
 }
-
-/* int revcmp(int (*cmp)(void*, void*)) */
-/* { */
-/* 	return */ 

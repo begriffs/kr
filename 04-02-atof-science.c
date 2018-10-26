@@ -40,7 +40,7 @@ double atof(char s[]) {
 	return val;
 }
 
-int main(int argc, char** argv)
+int main(void)
 {
 	printf("%f %f %f\n",
 		atof("10.0"), atof("10.001"), atof("-0.1"));

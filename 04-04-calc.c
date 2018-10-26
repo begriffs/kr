@@ -12,7 +12,7 @@ void printtop(void);
 void swaptop(void);
 void clear(void);
 
-int main(int argc, char** argv)
+int main(void)
 {
 	int type;
 	double op2;

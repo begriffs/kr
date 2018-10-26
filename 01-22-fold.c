@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-const int MAXLEN = 15;
+#define MAXLEN 15
 
 void printn(char s[], int n);
 void shift_back(char s[], int n);

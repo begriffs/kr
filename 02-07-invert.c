@@ -27,7 +27,7 @@ printb(unsigned u)
 int
 main()
 {
-	int i, j;
+	int i;
 	for (i = 0; i < 16; i++)
 	{
 		printb(i);

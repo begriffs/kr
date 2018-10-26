@@ -18,7 +18,7 @@ char token[MAXTOK],
 	 datatype[MAXTOK],
 	 out[1000];
 
-int main(int argc, char **argv)
+int main(void)
 {
 	while (gettoken() != EOF)
 	{

@@ -3,7 +3,7 @@
 int
 main()
 {
-	int c, state, len, i, j;
+	int c, len, i, j;
 	int hist[255];
 
 	for (i = 0; i < 255; i++)

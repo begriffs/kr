@@ -2,7 +2,7 @@
 
 #define swap(t,x,y) { t __tmp; __tmp=x; x=y; y=__tmp; }
 
-int main(int argc, char** argv)
+int main(void)
 {
 	int i = 1, j = 2;
 	swap(int, i, j);

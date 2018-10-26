@@ -12,7 +12,6 @@ char *lineptr[MAXLINES], alloc[MAXLINES*MAXLEN];
 
 int numcmp(const char *, const char *);
 int strcmpi(const char *a, const char *b);
-int revcmp(int (*)(void*, void*));
 
 int main(int argc, char **argv)
 {
@@ -20,7 +19,9 @@ int main(int argc, char **argv)
 	char *flags;
 	int (*cmp)(const char*, const char*) = strcmp;
 
-	while (*++argv) // skip argv[0]
+	(void)argc; /* unused param */
+
+	while (*++argv) /* skip argv[0] */
 	{
 		if (**argv == '-')
 		{

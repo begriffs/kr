@@ -20,7 +20,6 @@ strindex(char s[], char t[])
 int
 main ()
 {
-	char haystack[] = "ishish!";
 	printf("%s\tin %s\t(%i)\n", "ish", "ishish", strindex("ishish", "ish"));
 	printf("%s\tin %s\t(%i)\n", "ish", "ishish!", strindex("ishish!", "ish"));
 	printf("%s\tin %s\t(%i)\n", "foo", "bar", strindex("bar", "foo"));

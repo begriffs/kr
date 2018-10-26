@@ -34,17 +34,17 @@ main()
 		if (curl_count < 0)
 		{
 			puts("Unbalanced parens");
-			return;
+			return 1;
 		}
 		if (brack_count < 0)
 		{
 			puts("Unbalanced brackets");
-			return;
+			return 1;
 		}
 		if (brace_count < 0)
 		{
 			puts("Unbalanced braces");
-			return;
+			return 1;
 		}
 	}
 
