@@ -1,5 +1,6 @@
 #include "j-lines.h"
 #include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
@@ -19,7 +20,7 @@ int getl(char s[], int lim)
 int readlines(char *lineptr[], char *alloc, int maxlines, int maxlen)
 {
 	int len, nlines;
-	char *p, line[maxlen];
+	char *p, *line = malloc(maxlen+1);
    
 	p = alloc;
 	
@@ -27,7 +28,10 @@ int readlines(char *lineptr[], char *alloc, int maxlines, int maxlen)
 	while ((len = getl(line, maxlen)) > 0)
 	{
 		if (nlines >= maxlines || (p+len) > alloc+(maxlines*maxlen))
+		{
+			free(line);
 			return -1;
+		}
 		else
 		{
 			strcpy(p, line);
@@ -35,6 +39,7 @@ int readlines(char *lineptr[], char *alloc, int maxlines, int maxlen)
 			p += len+1;
 		}
 	}
+	free(line);
 	return nlines;
 }
 
