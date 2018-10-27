@@ -1,5 +1,5 @@
 # use no more nor less than ANSI C
-CFLAGS = -std=c89 -Wall -Wextra -Wpedantic -Wshadow
+CFLAGS = -std=c89 -Wall -Wextra -Wpedantic -Wshadow -Werror
 
 .SUFFIXES :
 .SUFFIXES : .o .c .h
