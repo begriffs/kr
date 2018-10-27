@@ -59,8 +59,8 @@ int main(void)
 {
 	char s[2048], t[2048];
 	printf("s> ");
-	scanf("%s", s);
+	fgets(s, sizeof(s), stdin);
 	printf("t> ");
-	scanf("%s", t);
+	fgets(t, sizeof(t), stdin);
 	printf("%d\n", pstrncmp(s, t, 4));
 }
