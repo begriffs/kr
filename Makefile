@@ -37,6 +37,8 @@ j-lines.o : j-lines.h
 	${CC} ${CFLAGS} -o $@ 05-18-dcl.c j-getch.o ${LDFLAGS}
 06-01-keywords : 06-01-keywords.c j-getch.o
 	${CC} ${CFLAGS} -o $@ 06-01-keywords.c j-getch.o ${LDFLAGS}
+06-02-identical : 06-02-identical.c j-getch.o
+	${CC} ${CFLAGS} -o $@ 06-02-identical.c j-getch.o ${LDFLAGS}
 
 .SECONDEXPANSION: # a GNU'ism to allow $$@
 
